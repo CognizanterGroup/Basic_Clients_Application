@@ -27,12 +27,11 @@ def download_model():
 # ----------- Load Model and Tokenizer -----------
 @st.cache_resource
 def load_model():
-    download_model()
+    model = BertForSequenceClassification.from_pretrained('bert-base-uncased', num_labels=5)  # Adjust labels!
 
-    model = BertForSequenceClassification.from_pretrained('bert-base-uncased', num_labels=5)
-    model.load_state_dict(torch.load(MODEL_PATH, map_location=torch.device('cpu')))
-
-    tokenizer = BertTokenizer.from_pretrained(TOKENIZER_PATH)
+    # 2. Load your saved weights
+    model.load_state_dict(torch.load('comment_bert.pth', map_location=torch.device('cpu')))
+    tokenizer = BertTokenizer.from_pretrained('tokenizer/')
     return model, tokenizer
 
 model, tokenizer = load_model()
