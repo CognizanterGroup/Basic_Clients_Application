@@ -13,7 +13,6 @@ st.set_page_config(page_title="Toxicity Text Classifier", page_icon="🛡️", l
 # ----------- Constants -----------
 MODEL_PATH = "comment_bert.pth"
 MODEL_URL = "https://huggingface.co/Datalictichub/Simple/resolve/main/Comment_bert.pth"
-TOKENIZER_PATH = "tokenizer/"
 
 # ----------- Ensure Model File Exists -----------
 def download_model():
