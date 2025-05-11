@@ -19,7 +19,7 @@ MODEL_URL = "https://huggingface.co/Datalictichub/Simple/resolve/main/Comment_be
 
 
 # ----------- Load Model and Tokenizer -----------
-@st.cache_resource
+# @st.cache_resource
 def load_model():
    # Automatically downloads and caches the model weights
     model_path = hf_hub_download(repo_id="Datalictichub/Simple", filename="Comment_bert.pth")
