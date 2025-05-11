@@ -227,6 +227,9 @@ def show_app_page():
     
     model_path = os.path.join(os.environ.get('HF_HOME', os.path.expanduser('~/.cache/huggingface')), 
                              'hub', 'models--Datalictichub--Simple', 'snapshots')
+
+
+    st.warning(f"Could not save image locally: {model_path}")
     
     model_exists = False
     if os.path.exists(model_path):
