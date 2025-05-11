@@ -112,6 +112,8 @@ def load_model():
         # Check if model exists
         model_path = os.path.join(os.environ.get('HF_HOME', os.path.expanduser('~/.cache/huggingface')), 
                                  'hub', 'models--Datalictichub--Simple', 'snapshots')
+
+        st.warning(f"Model path: {model_path}")
         
         # Check subdirectories for the model file
         model_exists = False
