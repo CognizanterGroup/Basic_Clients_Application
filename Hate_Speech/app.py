@@ -6,6 +6,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import requests
+from huggingface_hub import hf_hub_download
 
 # ----------- Page Configuration -----------
 st.set_page_config(page_title="Toxicity Text Classifier", page_icon="🛡️", layout="centered")
@@ -15,21 +16,17 @@ MODEL_PATH = "comment_bert.pth"
 MODEL_URL = "https://huggingface.co/Datalictichub/Simple/resolve/main/Comment_bert.pth"
 
 # ----------- Ensure Model File Exists -----------
-def download_model():
-    if not os.path.exists(MODEL_PATH):
-        with st.spinner("Downloading model weights..."):
-            response = requests.get(MODEL_URL)
-            response.raise_for_status()
-            with open(MODEL_PATH, "wb") as f:
-                f.write(response.content)
+
 
 # ----------- Load Model and Tokenizer -----------
 @st.cache_resource
 def load_model():
-    model = BertForSequenceClassification.from_pretrained('bert-base-uncased', num_labels=5)  # Adjust labels!
+   # Automatically downloads and caches the model weights
+    model_path = hf_hub_download(repo_id="Datalictichub/Simple", filename="Comment_bert.pth")
 
-    # 2. Load your saved weights
-    model.load_state_dict(torch.load('comment_bert.pth', map_location=torch.device('cpu')))
+    model = BertForSequenceClassification.from_pretrained('bert-base-uncased', num_labels=5)
+    model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
+
     tokenizer = BertTokenizer.from_pretrained('tokenizer/')
     return model, tokenizer
 
