@@ -239,9 +239,9 @@ def show_app_page():
                 break
     
     # If resources don't exist, prompt to go to home page
-    if not tokenizer_exists or not model_exists:
-        st.warning("⚠️ Required resources not found. Please go to the Home page to download them first.")
-        return
+    # if not tokenizer_exists or not model_exists:
+    #     st.warning("⚠️ Required resources not found. Please go to the Home page to download them first.")
+    #     return
     
     # Load model and tokenizer
     model, tokenizer = load_model()
