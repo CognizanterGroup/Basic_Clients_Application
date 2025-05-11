@@ -96,7 +96,8 @@ def get_image():
                         img.save("Hate speech.jpg")
                         st.success("✅ Header image downloaded and saved locally")
                     except Exception as e:
-                        st.warning(f"Could not save image locally: {str(e)}")
+                        # st.warning(f"Could not save image locally: {str(e)}")
+                        pass
                     return img
                 else:
                     st.warning(f"Could not download image: HTTP status {response.status_code}")
