@@ -33,23 +33,27 @@ def download_model_with_progress():
         progress_bar = st.progress(0)
         status_text = st.empty()
         
-        # Custom progress callback
-        def progress_callback(progress):
-            # Update progress bar (convert from 0-1 to 0-100)
-            progress_percentage = int(progress * 100)
-            progress_bar.progress(progress_percentage)
-            status_text.text(f"Downloading: {progress_percentage}% complete")
+        # We'll implement a manual progress simulation since huggingface_hub doesn't
+        # provide direct progress callback in a way we can easily use with Streamlit
+        status_text.text("Starting download...")
+        progress_bar.progress(10)
+        time.sleep(0.5)
         
-        # Download the model file with progress tracking
+        # Simulate progress while doing the actual download
+        for i in range(10, 90, 10):
+            progress_bar.progress(i)
+            status_text.text(f"Downloading: {i}% complete")
+            time.sleep(0.5)
+            
+        # Download the model file
         model_path = hf_hub_download(
             repo_id=REPO_ID, 
             filename=MODEL_FILENAME,
             force_download=True,  # Force download even if cached
-            tqdm_class=None,  # Disable tqdm progress
             resume_download=True,  # Allow resuming partial downloads
         )
         
-        # Fill the progress bar to 100% when done
+        # Complete the progress bar
         progress_bar.progress(100)
         status_text.text("Download complete!")
         time.sleep(1)  # Give user time to see the completion
